@@ -5,17 +5,20 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
+import java.time.*;
 
 public class ClockController extends Application {
 
-    //private ClockModel model
     private ClockView view;
+    private ClockModel model;
+
 
     public ClockController(){
-        //model = new clockModel();
+        model = new ClockModel();
         view = new ClockView();
 
-        view.setButtonAction(this::changeButtonLabel);
+        view.setLeftButtonAction(this::changeLeftButtonLabel);
+        view.setRightButtonAction(this::changeRightButtonLabel);
     }
 
     @Override
@@ -29,8 +32,15 @@ public class ClockController extends Application {
         primaryStage.show();
     }
 
-    private void changeButtonLabel(ActionEvent event){
-        view.setButtonLabel((Button)event.getSource());
+    private void changeLeftButtonLabel(ActionEvent event){
+        view.setButtonLabel((Button)event.getSource(), LocalTime.now().toString());
+        model.setFile("Norman.txt"); //sets Norman to write in Norman.txt
+        model.addTime();
+    }
+    private void changeRightButtonLabel(ActionEvent event){
+        view.setButtonLabel((Button)event.getSource(), LocalTime.now().toString());
+        model.setFile("NoName.txt"); //sets NoName to write in NoName.txt
+        model.addTime();
     }
 
     public static void main(String[] args) {
