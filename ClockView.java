@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
+import javafx.scene.image.*;
 import javafx.stage.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
@@ -15,14 +16,23 @@ import javafx.scene.layout.*;
 
 public class ClockView {
 
+    //MenuBar menuBar;
+    //Menu menuFile, menuSettings, menuContact;
     HBox mainBox;
     Button buttonSlot1,buttonSlot2;
     Label labelSlot1, labelSlot2;
     private final int BUTTON_WIDTH = 220, BUTTON_HEIGHT = 220;
 
 
-
     public ClockView(){
+
+        //MenuBar
+        /*
+        menuFile = new Menu("Files");
+        menuSettings = new Menu("Settings");
+        menuContact = new Menu("Contact Us");
+        menuBar = new MenuBar(menuFile, menuSettings, menuContact);
+        */
 
         buttonSlot1 = new Button();
         buttonSlot1.setPrefSize(BUTTON_WIDTH,BUTTON_HEIGHT);
@@ -31,6 +41,10 @@ public class ClockView {
         buttonSlot2 = new Button();
         buttonSlot2.setPrefSize(BUTTON_WIDTH,BUTTON_HEIGHT);
         labelSlot2 = new Label("button 2");
+
+        //Image settings
+        Image image = new Image(getClass().getResourceAsStream("/images/norman.jpg"), 220, 220, false, true);
+        buttonSlot1.setGraphic(new ImageView(image));
 
         VBox slot1 = new VBox(buttonSlot1, labelSlot1);
         slot1.setAlignment(Pos.CENTER);
@@ -51,30 +65,21 @@ public class ClockView {
         return mainBox;
     }
 
-    public void setButtonAction(EventHandler<ActionEvent> handler){
+    public void setLeftButtonAction(EventHandler<ActionEvent> handler){
         buttonSlot1.setOnAction(handler);
+    }
+    public void setRightButtonAction(EventHandler<ActionEvent> handler){
         buttonSlot2.setOnAction(handler);
     }
     public Button getButton(){
         return buttonSlot1;
     }
-    public void setButtonLabel(Button button){
+    public void setButtonLabel(Button button, String string){
         if(button == buttonSlot1){
-            if(labelSlot1.getText() == "Clicked"){
-                labelSlot1.setText("Unclicked");
-            }
-            else{
-                labelSlot1.setText("Clicked");
-            }
+            labelSlot1.setText(string);
         }
         else{
-            if(labelSlot2.getText() == "Clicked"){
-                labelSlot2.setText("Unclicked");
-            }
-            else{
-                labelSlot2.setText("Clicked");
-            }
-
+            labelSlot2.setText(string);
         }
     }
 }
